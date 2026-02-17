@@ -22,10 +22,9 @@ class Simulator {
             };
 
             string json = JsonSerializer.Serialize(packet); // Converts the packet object into a JSON string
-            db.HashSet("f35:state", new HashEntry[] { new HashEntry("latest", json) });
-            // Saves the JSON into Redis under hash key "f35:state" with field "latest"
-            pub.Publish("f35:realtime", json); // Publishes the JSON message on Redis pub/sub channel "f35:realtime" this allows real-time updates to any subscribers
-            
+            db.HashSet("f35:state", new HashEntry[] { new HashEntry("latest", json) }); // Saves the JSON into Redis under hash key "f35:state" with field "latest"
+            // pub.Publish("f35:realtime", json); // Publishes the JSON message on Redis pub/sub channel "f35:realtime" this allows real-time updates to any subscribers
+            pub.Publish(RedisChannel.Literal("f35:realtime"), json); // That removes the warning and prevents exit code 134 (which is caused by .NET treating this obsolete API usage as an error in CI).
             while(sw.Elapsed < interval) { } // Busy-wait hit exact timing of a consistent 777Hz update rate
         }
     }
