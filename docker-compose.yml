@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+
+  redis:
+    image: redis:latest
+    container_name: pilotview_redis
+    ports:
+      - '6379:6379'
+
+  backend:
+    build: ./backend-fastapi
+    container_name: pilotview_backend
+    ports:
+      - '8000:8000'
+    depends_on:
+      - redis
+
+  simulator:
+    build: ./simulation-engine
+    container_name: pilotview_simulator
+    depends_on:
+      - redis
+
+  frontend:
+    build: ./frontend
+    container_name: pilotview_frontend
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend

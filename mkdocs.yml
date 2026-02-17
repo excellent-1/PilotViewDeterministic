@@ -1,0 +1,7 @@
+site_name: PilotView Documentation
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - API: api.md
+  - Simulation: simulation.md
+  - Frontend: frontend.md
