@@ -1,0 +1,15 @@
+C:\_______PilotView\simulation-engine\src\bin\Debug\net10.0\SimulationEngine.exe
+C:\_______PilotView\simulation-engine\src\bin\Debug\net10.0\SimulationEngine.deps.json
+C:\_______PilotView\simulation-engine\src\bin\Debug\net10.0\SimulationEngine.runtimeconfig.json
+C:\_______PilotView\simulation-engine\src\bin\Debug\net10.0\SimulationEngine.dll
+C:\_______PilotView\simulation-engine\src\bin\Debug\net10.0\SimulationEngine.pdb
+C:\_______PilotView\simulation-engine\src\obj\Debug\net10.0\SimulationEngine.GeneratedMSBuildEditorConfig.editorconfig
+C:\_______PilotView\simulation-engine\src\obj\Debug\net10.0\SimulationEngine.AssemblyInfoInputs.cache
+C:\_______PilotView\simulation-engine\src\obj\Debug\net10.0\SimulationEngine.AssemblyInfo.cs
+C:\_______PilotView\simulation-engine\src\obj\Debug\net10.0\SimulationEngine.csproj.CoreCompileInputs.cache
+C:\_______PilotView\simulation-engine\src\obj\Debug\net10.0\SimulationEngine.sourcelink.json
+C:\_______PilotView\simulation-engine\src\obj\Debug\net10.0\SimulationEngine.dll
+C:\_______PilotView\simulation-engine\src\obj\Debug\net10.0\refint\SimulationEngine.dll
+C:\_______PilotView\simulation-engine\src\obj\Debug\net10.0\SimulationEngine.pdb
+C:\_______PilotView\simulation-engine\src\obj\Debug\net10.0\SimulationEngine.genruntimeconfig.cache
+C:\_______PilotView\simulation-engine\src\obj\Debug\net10.0\ref\SimulationEngine.dll
