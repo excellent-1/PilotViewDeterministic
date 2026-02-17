@@ -20,8 +20,8 @@ jobs:
 
       - name: Set Environment
         run: |
-          echo "UPSTASH_REDIS_URL=${{ secrets.UPSTASH_REDIS_URL }}" >> $GITHUB_ENV
-          echo "UPSTASH_REDIS_PASSWORD=${{ secrets.UPSTASH_REDIS_PASSWORD }}" >> $GITHUB_ENV
+          echo "UPSTASH_REDIS_URL=${{ secrets.UPSTASH_REDIS_REST_URL }}" >> $GITHUB_ENV
+          echo "UPSTASH_REDIS_PASSWORD=${{ secrets.UPSTASH_REDIS_REST_TOKEN }}" >> $GITHUB_ENV
 
       - name: Run Simulator
         run: dotnet run --project simulation-engine/src

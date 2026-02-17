@@ -1,8 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "5qn6Km8bG8k=",
+  "dgSpecHash": "nJsbhGh4BCo=",
   "success": true,
   "projectFilePath": "C:\\_______PilotView\\simulation-engine\\src\\SimulationEngine.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\dhhea\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\dhhea\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\dhhea\\.nuget\\packages\\pipelines.sockets.unofficial\\2.2.8\\pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
+    "C:\\Users\\dhhea\\.nuget\\packages\\stackexchange.redis\\2.11.0\\stackexchange.redis.2.11.0.nupkg.sha512",
+    "C:\\Users\\dhhea\\.nuget\\packages\\system.io.hashing\\10.0.2\\system.io.hashing.10.0.2.nupkg.sha512"
+  ],
   "logs": []
 }
