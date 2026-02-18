@@ -40,7 +40,8 @@ class Simulator {
 
             string json_packet = JsonSerializer.Serialize(packet); // Converts the packet object into a JSON string
             db.HashSet("f35:state", new HashEntry[] { // Add a count to hash entry to see new entries insert in upstash in real time
-                new HashEntry($"latest{hash_entry_count}", json_packet) }); // Saves the JSON into Redis under hash key "f35:state" with field "latest"
+                new HashEntry($"latest_{hash_entry_count}_{DateTime.Now:yyyy-MM-dd HH:mm:ss.fffffff}", json_packet) 
+                }); // Saves the JSON into Redis under hash key "f35:state" with field "latest"
             pub.Publish(RedisChannel.Literal("f35:realtime"), json_packet); // That removes the warning and prevents exit code 134 (which is caused by .NET treating this obsolete API usage as an error in CI).
             //while(sw.Elapsed < interval) { } // Busy-wait hit exact timing of a consistent 777Hz update rate // Your CPU use is high (almost at 99%) because the loop is constantly checking sw.Elapsed millions of times per second.
             var remaining_time = interval - sw.Elapsed;
