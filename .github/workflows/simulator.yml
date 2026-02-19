@@ -1,6 +1,13 @@
 ﻿name: Run C# Simulator
 
 on:
+
+  push: # When code it pushed to the main or the simulation-engine/** path
+    branches: 
+      - main
+    paths:
+      - simulation-engine/**
+
   schedule:
     - cron: "0 */6 * * *"   # My Cron runs every 6 hours, starting a new C# Simulator  
   workflow_dispatch:
