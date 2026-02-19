@@ -41,7 +41,7 @@ try:
     # r.ping()  # Test connection
     logger.info("✅ Redis connected successfully")
 except Exception as e:
-    logger.error(f"❌ Redis connection failed: {r} _ {e}")
+    logger.error(f"❌ Redis connection failed: {e}")
     r = None
 
 
@@ -73,7 +73,8 @@ def health():
         logger.info("✅ /health Redis connected successfully")
         return {"healthy": True, "redis": "connected"}
     except Exception as e:
-        logger.error(f"❌ /health Redis connection failed: {r} _ {e}")
+        logger.error(f"❌ Redis connection failed: {e}")
+        r = None
         return {"healthy": True, "redis": "disconnected" }
 
 
