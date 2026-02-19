@@ -1,26 +1,44 @@
 ﻿# .github/workflows/backend-fastapi.yml
 name: 🚀 Deploy FastAPI Backend to Render
+
 on:
   push:
     branches: [main]
-    paths: ['backend-fastapi/**']
+    paths:
+      - "backend-fastapi/**"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     steps:
       - name: 🚀 Trigger Render Deploy
+        shell: pwsh
         run: |
-          RESPONSE=$(curl -s -w "%%{http_code}" -X POST \
-            -H "Content-Type: application/json" \
-            ${{ secrets.RENDER_DEPLOY_HOOK }} \
-            -d '{"clearCache": true}')
-          echo "Render response: $RESPONSE"
-          if [[ $RESPONSE == 200* ]]; then
-            echo "✅ Render deploy triggered!"
-          else
-            echo "❌ Render deploy failed: $RESPONSE"
+          $url = "${{ secrets.RENDER_DEPLOY_HOOK }}"
+
+          if ([string]::IsNullOrWhiteSpace($url)) {
+            Write-Error "RENDER_DEPLOY_HOOK secret is missing/empty."
             exit 1
-          fi
+          }
+
+          try {
+            # Invoke-WebRequest throws on non-2xx, so use try/catch.
+            $response = Invoke-WebRequest -Uri $url -Method POST -ContentType "application/json"
+            Write-Host "Status: $($response.StatusCode)"
+
+            if ($response.StatusCode -in 200, 201, 202, 204) {
+              Write-Host "✅ Render deploy triggered!"
+            } else {
+              Write-Error "❌ Deploy failed: $($response.StatusCode)"
+              exit 1
+            }
+          }
+          catch {
+            # Capture HTTP status if available
+            $status = $null
+            if ($_.Exception.Response -and $_.Exception.Response.StatusCode) {
+              $status = [int]$_.Exception.Response.StatusCode
+            }
+            Write-Error ("❌ Deploy request failed. Status: {0}. Error: {1}" -f $status, $_)
+            exit 1
+          }
