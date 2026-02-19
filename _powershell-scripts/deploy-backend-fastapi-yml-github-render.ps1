@@ -48,3 +48,44 @@ Write-Host "3. git add . && git commit -m 'Add backend deploy' && git push" -For
 #3. Workflow: POST to Render webhook
 #4. Render: Runs "cd backend-fastapi && uvicorn..." 
 #5. ✅ Backend live! (simulator.yml = untouched)
+
+
+
+#  Update Fix for requirements.txt
+@"
+# Core FastAPI
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
+
+# Redis (Upstash)
+redis>=5.0.0
+
+# Pydantic (FastAPI dependency)
+pydantic>=2.0.0
+
+# Your existing deps (keep these)
+anyio==4.12.1
+click==8.3.1
+colorama==0.4.6
+h11==0.16.0
+httptools==0.7.1
+idna==3.11
+python-dotenv==1.2.1
+PyYAML==6.0.3
+watchfiles==1.1.1
+websockets==16.0
+"@ | Set-Content "backend-fastapi/requirements.txt" -Encoding UTF8
+
+
+
+# 1. Fix requirements.txt (run above first)
+cd backend-fastapi
+
+# 2. Fresh install
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# 3. Test
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000

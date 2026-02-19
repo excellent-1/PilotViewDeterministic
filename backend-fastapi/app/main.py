@@ -31,14 +31,13 @@ app.include_router(StateRouter, prefix="/state", tags=["State"])
 
 # Redis connection
 try:
-    """
     r = redis.Redis.from_url(
-        os.getenv("UPSTASH_REDIS_URL"),
-        password=os.getenv("UPSTASH_REDIS_PASSWORD"),
+        os.environ["UPSTASH_REDIS_URL"],
+        password=os.environ.get("UPSTASH_REDIS_PASSWORD"),
         decode_responses=True,
-        ssl=True # socket_connect_timeout=5
-    )"""
-    r = redis.Redis.from_url(os.environ["UPSTASH_REDIS_URL"])
+        ssl=True,
+        socket_connect_timeout=10
+    )
     # r.ping()  # Test connection
     logger.info("✅ Redis connected successfully")
 except Exception as e:
@@ -61,9 +60,10 @@ def root():
 def health():
     r = redis.Redis.from_url(
         os.environ["UPSTASH_REDIS_URL"],
-        password=os.environ["UPSTASH_REDIS_PASSWORD"],
+        password=os.environ.get("UPSTASH_REDIS_PASSWORD"),
         decode_responses=True,
-        ssl=True
+        ssl=True,
+        socket_connect_timeout=10
     )
     if not r:
         return {"healthy": True, "redis": "not-initialized"}
