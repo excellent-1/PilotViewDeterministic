@@ -3,7 +3,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'backend-fastapi/**'        # ← ONLY these files!
+      - 'backend-fastapi/**'
 
 jobs:
   deploy:
