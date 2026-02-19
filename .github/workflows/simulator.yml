@@ -16,6 +16,7 @@ jobs:
       # Due to GitHub Actions 6 hour hard time limit, I am stopping each job at 4 hours and 4 minutes.
       # GitHub won't have to kill my running job at its 6 hour limit b/c they time out at 2 hours.
       # For the next 4 hours No Simulator will run, b/c a new simulator starts running every 6 hours.
+      # Plus I am cancelling old C# simulators when a new one starts
 
     steps:
       - uses: actions/checkout@v4
