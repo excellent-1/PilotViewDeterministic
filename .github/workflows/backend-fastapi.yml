@@ -1,0 +1,16 @@
+﻿name: 🚀 Deploy FastAPI Backend to Render
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend-fastapi/**'        # ← ONLY these files!
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Trigger Render Deploy
+        run: |
+          curl -X POST \            
+            -H "Content-Type: application/json" \
+            ${{ secrets.RENDER_DEPLOY_HOOK }}
