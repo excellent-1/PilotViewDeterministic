@@ -2,24 +2,21 @@
 New-Item -ItemType Directory -Force -Path ".github\workflows"
 
 # 1. Create workflow file (PowerShell)
-@"
+@'
 name: 🚀 Deploy FastAPI Backend to Render
 on:
   push:
     branches: [main]
     paths:
-      - 'backend-fastapi/**'        # ← ONLY these files!
+      - 'backend-fastapi/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: 🚀 Trigger Render Deploy
-        run: |
-          curl -X POST `\`            
-            -H "Content-Type: application/json" `\`
-            `$`{{ secrets.RENDER_DEPLOY_HOOK }}
-"@ | Out-File -FilePath ".github/workflows/backend-fastapi.yml" -Encoding UTF8
+        run: curl -X POST -H "Content-Type: application/json" ${{ secrets.RENDER_DEPLOY_HOOK }}
+'@ | Out-File -FilePath ".github/workflows/backend-fastapi.yml" -Encoding UTF8
 
 # 2. Verify creation
 Write-Host "✅ Workflow created:" -ForegroundColor Green
