@@ -1,13 +1,22 @@
-﻿name: Run Simulator
+﻿name: Run C# Simulator
 
 on:
   schedule:
-    - cron: "*/1 * * * *"  # every 1 minute
+    - cron: "0 */6 * * *"   # My Cron runs every 6 hours, starting a new C# Simulator  
   workflow_dispatch:
 
+concurrency:
+  group: simulator
+  cancel-in-progress: true   # cancel old C# simulator when new one starts. Each of My C# simulator runs in an infinite loop
+                # Github allows  Public repos → 6 hours max execution and Private repos (Free) → 2 hours.   
 jobs:
   run:
     runs-on: ubuntu-latest
+    timeout-minutes: 244  # 4 hours 4 minutes (less than GitHub 6h limit). 
+      # Due to GitHub Actions 6 hour hard time limit, I am stopping each job at 4 hours and 4 minutes.
+      # GitHub won't have to kill my running job at its 6 hour limit b/c they time out at 2 hours.
+      # For the next 4 hours No Simulator will run, b/c a new simulator starts running every 6 hours.
+
     steps:
       - uses: actions/checkout@v4
 
