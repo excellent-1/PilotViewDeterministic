@@ -14,6 +14,11 @@
     // "lib": ["esnext"],
     // "types": ["node"],
     // and npm install -D @types/node
+    "moduleResolution": "node", /*  Or remove that line entirely — React defaults to "node" anyway.
+            This is the correct fix for React projects because:
+              • CRA, Vite, Next.js expect Node‑style resolution
+              • You should NOT use .tsx extensions on imports
+              • You should NOT include .js extensions for .tsx files */
 
     // Other Outputs
     "sourceMap": true,
