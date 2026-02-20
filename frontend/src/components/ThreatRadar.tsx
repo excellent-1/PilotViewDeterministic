@@ -1,6 +1,15 @@
 import { PolarGrid, Radar, RadarChart, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 
-export default function ThreatRadar({ threats }) {
+type Threat = {
+  direction: string;
+  distance: number;
+};
+
+interface ThreatRadarProps {
+  threats?: Threat[] | null;
+}
+
+export default function ThreatRadar({ threats }: ThreatRadarProps) {
   if (!threats) return null;
 
   return (
