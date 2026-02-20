@@ -74,7 +74,7 @@ npm run dev
 Replace:
 
 npm start
-with:
+#with:
 
 npm run dev
 
@@ -83,3 +83,117 @@ npm run dev
 
 Get-ChildItem frontend -Force
 # and I’ll verify all required Vite files are present.
+
+#////////////////////////////
+# Base project path
+$projectRoot = "C:\_______PilotView\frontend\src"
+$componentsPath = "$projectRoot\components"
+
+# Ensure directories exist
+if (!(Test-Path $projectRoot)) {
+    New-Item -ItemType Directory -Path $projectRoot | Out-Null
+}
+
+if (!(Test-Path $componentsPath)) {
+    New-Item -ItemType Directory -Path $componentsPath | Out-Null
+}
+
+# -----------------------
+# Write AircraftMap.tsx
+# -----------------------
+$aircraftMapContent = @"
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+
+export default function AircraftMap({ data }) {
+  if (!data) return null;
+
+  const { lat, lon } = data.position || { lat: 0, lon: 0 };
+
+  return (
+    <MapContainer center={[lat, lon]} zoom={7} style={{ height: '400px', width: '100%' }}>
+      <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'/>
+      <Marker position={[lat, lon]}>
+        <Popup>Aircraft Position</Popup>
+      </Marker>
+    </MapContainer>
+  );
+}
+"@
+
+Set-Content -Path "$componentsPath\AircraftMap.tsx" -Value $aircraftMapContent -Force
+
+
+# -----------------------
+# Write ThreatRadar.tsx
+# -----------------------
+$threatRadarContent = @"
+import { PolarGrid, Radar, RadarChart, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
+
+type Threat = {
+  direction: string;
+  distance: number;
+};
+
+interface ThreatRadarProps {
+  threats?: Threat[] | null;
+}
+
+export default function ThreatRadar({ threats }: ThreatRadarProps) {
+  if (!threats) return null;
+
+  return (
+    <RadarChart cx='50%' cy='50%' outerRadius='80%' width={500} height={300} data={threats}>
+      <PolarGrid />
+      <PolarAngleAxis dataKey='direction' />
+      <PolarRadiusAxis />
+      <Radar name='Threats' dataKey='distance' stroke='#FF4136' fill='#FF4136' fillOpacity={0.6} />
+    </RadarChart>
+  );
+}
+"@
+
+Set-Content -Path "$componentsPath\ThreatRadar.tsx" -Value $threatRadarContent -Force
+
+
+# -----------------------
+# Write Dashboard.tsx
+# -----------------------
+$dashboardContent = @"
+import { useEffect, useState } from 'react';
+import AircraftMap from './components/AircraftMap';
+import ThreatRadar from './components/ThreatRadar';
+
+export default function Dashboard() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:8000/ws/live');
+    ws.onmessage = msg => setData(JSON.parse(msg.data));
+  }, []);
+
+  return (
+    <div style={{ padding: 20 }}>
+      <h1>F-35 PilotView Dashboard</h1>
+      <AircraftMap data={data} />
+      <ThreatRadar threats={data?.threats || []} />
+    </div>
+  );
+}
+"@
+
+Set-Content -Path "$projectRoot\Dashboard.tsx" -Value $dashboardContent -Force
+
+
+Write-Host "`n✔ Files successfully inserted into your Vite project!"
+Write-Host "  - $componentsPath\AircraftMap.tsx"
+Write-Host "  - $componentsPath\ThreatRadar.tsx"
+Write-Host "  - $projectRoot\Dashboard.tsx"
+
+#////////  Inside frontend folder /////////////////////////////////
+
+npm install react-leaflet leaflet
+npm install recharts
+
+npm install --save-dev @types/leaflet
+

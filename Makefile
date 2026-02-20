@@ -31,7 +31,7 @@ api-old:
 	cd backend-fastapi && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 ui:
-	cd frontend && npm install && npm start
+	cd frontend && npm install && npm run dev
 
 # Install/Update backend dependencies
 api-install:

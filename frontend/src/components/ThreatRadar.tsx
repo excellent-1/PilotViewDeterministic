@@ -17,7 +17,7 @@ export default function ThreatRadar({ threats }: ThreatRadarProps) {
       <PolarGrid />
       <PolarAngleAxis dataKey='direction' />
       <PolarRadiusAxis />
-      <Radar name='Threats' dataKey='distance' stroke='#FF4136' fill='#FF4136' fillOpacity={0.6}/>
+      <Radar name='Threats' dataKey='distance' stroke='#FF4136' fill='#FF4136' fillOpacity={0.6} />
     </RadarChart>
   );
 }

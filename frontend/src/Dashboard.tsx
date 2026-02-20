@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import AircraftMap from './components/AircraftMap';
-import ThreatRadar from './components/ThreatRadar';
+import AircraftMap from './components/AircraftMap.tsx';
+import ThreatRadar from './components/ThreatRadar.tsx';
 
 export default function Dashboard() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
 
   useEffect(() => {
     const ws = new WebSocket('ws://localhost:8000/ws/live');
-    ws.onmessage = msg => setData(JSON.parse(msg.data));
+    ws.onmessage = msg => setData(JSON.parse(msg.data) as any);
+    return () => ws.close();
   }, []);
 
   return (
