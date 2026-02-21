@@ -25,7 +25,7 @@ class Simulator {
         var random_number_generator = new DeterministicRng(12345); // Creates a deterministic random generator with a fixed seed so outputs are reproducible
         var engine = new EngineSystem(random_number_generator); // Creates an engine simulation system that uses the deterministic RNG
         var threats = new ThreatSystem(random_number_generator); // Creates a threat simulation system that uses the deterministic RNG
-        var interval = TimeSpan.FromSeconds(20); // 1.0 / 777.0 =  777 Hz update rate means we want to update every 1/777 seconds, so we calculate that interval here
+        var interval = TimeSpan.FromSeconds(1.0 / 33.0); // 1.0 / 777.0 =  777 Hz update rate means we want to update every 1/777 seconds, so we calculate that interval here
         var sw = new System.Diagnostics.Stopwatch(); // Switching to a high-precision stopwatch for accurate timing to reach exactly 777Hz
         
         int hash_entry_count = 1;
